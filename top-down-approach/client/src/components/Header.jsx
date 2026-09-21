@@ -1,8 +1,10 @@
 import React from 'react';
 import { AuthStatus } from '../features/authentication/AuthStatus';
+import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 
 export function Header({ currentView, onNavigate }) {
+  const { isAuthenticated } = useAuth();
   const { cartItemCount } = useCart();
 
   return (
@@ -27,6 +29,15 @@ export function Header({ currentView, onNavigate }) {
           🛒 Cart
           {cartItemCount > 0 && <span className="cart-count-badge">{cartItemCount}</span>}
         </button>
+
+        {isAuthenticated && (
+          <button
+            className={`nav-btn ${currentView === 'orders' || currentView === 'order-details' ? 'active' : ''}`}
+            onClick={() => onNavigate('orders')}
+          >
+            📦 Orders
+          </button>
+        )}
 
         <AuthStatus onNavigate={onNavigate} />
       </nav>

@@ -5,6 +5,7 @@ import healthRoutes from './routes/health.routes.js';
 import productRoutes from './routes/product.routes.js';
 import authRoutes from './routes/auth.routes.js';
 import cartRoutes from './routes/cart.routes.js';
+import orderRoutes from './routes/order.routes.js';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use('/api', healthRoutes);
 app.use('/api', productRoutes);
 app.use('/api', authRoutes);
 app.use('/api', cartRoutes);
+app.use('/api', orderRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {

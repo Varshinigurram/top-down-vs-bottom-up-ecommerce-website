@@ -63,7 +63,11 @@ export function CartView({ onNavigate }) {
           </div>
 
           <div className="cart-summary-column">
-            <CartSummary totalItems={cart.totalItems} subtotal={cart.subtotal} />
+            <CartSummary
+              totalItems={cart.totalItems}
+              subtotal={cart.subtotal}
+              onProceedToCheckout={() => onNavigate('checkout')}
+            />
           </div>
         </div>
       )}

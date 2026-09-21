@@ -1,7 +1,7 @@
 import React from 'react';
 
-export function CartSummary({ totalItems, subtotal }) {
-  const estimatedShipping = totalItems > 0 ? 0 : 0; // Free shipping promo
+export function CartSummary({ totalItems, subtotal, onProceedToCheckout }) {
+  const estimatedShipping = 0; // Free shipping promo
   const estimatedTax = Math.round(subtotal * 0.08 * 100) / 100; // 8% estimated tax
   const totalAmount = Math.round((subtotal + estimatedShipping + estimatedTax) * 100) / 100;
 
@@ -36,13 +36,13 @@ export function CartSummary({ totalItems, subtotal }) {
         <span className="total-amount">${totalAmount.toFixed(2)}</span>
       </div>
 
-      <button className="btn-primary btn-block btn-checkout-disabled" disabled>
-        Proceed to Checkout (Coming in Phase 6)
+      <button
+        className="btn-primary btn-block"
+        onClick={onProceedToCheckout}
+        disabled={totalItems === 0}
+      >
+        Proceed to Checkout →
       </button>
-
-      <p className="checkout-notice">
-        🔒 Checkout and Order processing will be implemented in the next phase.
-      </p>
     </div>
   );
 }

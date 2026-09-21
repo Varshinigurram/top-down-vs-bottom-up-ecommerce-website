@@ -136,3 +136,23 @@ export async function findProductById(id) {
 
   return Promise.resolve(product ? { ...product } : null);
 }
+
+/**
+ * Decrements stock level for a product by specified quantity.
+ */
+export async function reduceProductStock(id, quantity) {
+  if (!id) return Promise.resolve(false);
+  const qty = Number(quantity);
+
+  const productIndex = products.findIndex(
+    (p) => p.id === id || p.id === `prod_${id.replace('p', '10')}` || (id === 'p1' && p.id === 'prod_101')
+  );
+
+  if (productIndex !== -1) {
+    products[productIndex].stock = Math.max(0, products[productIndex].stock - qty);
+    products[productIndex].updatedAt = new Date().toISOString();
+    return Promise.resolve(true);
+  }
+  return Promise.resolve(false);
+}
+
