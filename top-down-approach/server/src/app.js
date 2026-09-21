@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import healthRoutes from './routes/health.routes.js';
 import productRoutes from './routes/product.routes.js';
 import authRoutes from './routes/auth.routes.js';
+import cartRoutes from './routes/cart.routes.js';
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(cookieParser());
 app.use('/api', healthRoutes);
 app.use('/api', productRoutes);
 app.use('/api', authRoutes);
+app.use('/api', cartRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { AuthProvider } from './context/AuthContext';
+import { CartProvider } from './context/CartContext';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { CatalogView } from './views/CatalogView';
 import { ProductDetailsView } from './views/ProductDetailsView';
+import { CartView } from './views/CartView';
 import { LoginView } from './views/LoginView';
 import { RegisterView } from './views/RegisterView';
 
@@ -34,8 +36,10 @@ function TopDownAppContent() {
           <ProductDetailsView
             productId={selectedProductId}
             onBackToCatalog={() => setCurrentView('catalog')}
+            onNavigate={handleNavigate}
           />
         )}
+        {currentView === 'cart' && <CartView onNavigate={handleNavigate} />}
         {currentView === 'login' && <LoginView onNavigate={handleNavigate} />}
         {currentView === 'register' && <RegisterView onNavigate={handleNavigate} />}
       </main>
@@ -47,7 +51,9 @@ function TopDownAppContent() {
 export function App() {
   return (
     <AuthProvider>
-      <TopDownAppContent />
+      <CartProvider>
+        <TopDownAppContent />
+      </CartProvider>
     </AuthProvider>
   );
 }

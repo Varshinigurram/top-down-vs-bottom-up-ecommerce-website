@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { getProductById } from '../services/productService';
+import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 
-export function ProductDetailsView({ productId, onBackToCatalog }) {
+export function ProductDetailsView({ productId, onBackToCatalog, onNavigate }) {
+  const { isAuthenticated } = useAuth();
+  const { addItem } = useCart();
+
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const [addingToCart, setAddingToCart] = useState(false);
+  const [successBanner, setSuccessBanner] = useState('');
 
   useEffect(() => {
     if (!productId) {
@@ -26,6 +34,25 @@ export function ProductDetailsView({ productId, onBackToCatalog }) {
         setLoading(false);
       });
   }, [productId]);
+
+  const handleAddToCart = async () => {
+    if (!isAuthenticated) {
+      if (onNavigate) onNavigate('login');
+      return;
+    }
+
+    try {
+      setAddingToCart(true);
+      setError(null);
+      await addItem(product.id, quantity);
+      setSuccessBanner(`Added ${quantity} unit(s) of "${product.name || product.title}" to your cart!`);
+      setTimeout(() => setSuccessBanner(''), 4000);
+    } catch (err) {
+      setError(err.message || 'Failed to add item to cart.');
+    } finally {
+      setAddingToCart(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -64,6 +91,17 @@ export function ProductDetailsView({ productId, onBackToCatalog }) {
         <span className="breadcrumb-separator">/</span>
         <span className="breadcrumb-current">{product.name || product.title}</span>
       </nav>
+
+      {successBanner && (
+        <div className="alert-banner success">
+          ✨ {successBanner}{' '}
+          <button className="btn-link" onClick={() => onNavigate && onNavigate('cart')}>
+            View Cart →
+          </button>
+        </div>
+      )}
+
+      {error && <div className="alert-banner error">{error}</div>}
 
       <div className="product-details-card">
         <div className="product-details-visual">
@@ -113,12 +151,40 @@ export function ProductDetailsView({ productId, onBackToCatalog }) {
           </div>
 
           <div className="details-action-box">
-            <button className="btn-primary btn-large btn-disabled-notice" disabled>
-              Add to Cart (Coming in Phase 5)
-            </button>
-            <p className="action-hint">
-              ℹ️ Shopping cart integration will be activated in the next development phase.
-            </p>
+            <div className="add-to-cart-controls">
+              <div className="quantity-select-group">
+                <label htmlFor="details-qty">Qty:</label>
+                <select
+                  id="details-qty"
+                  value={quantity}
+                  onChange={(e) => setQuantity(Number(e.target.value))}
+                  disabled={!inStock || addingToCart}
+                >
+                  {Array.from({ length: Math.min(product.stock, 10) }, (_, i) => i + 1).map((n) => (
+                    <option key={n} value={n}>
+                      {n}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <button
+                className="btn-primary btn-large btn-add-cart"
+                onClick={handleAddToCart}
+                disabled={!inStock || addingToCart}
+              >
+                {!isAuthenticated
+                  ? 'Sign In to Add to Cart'
+                  : addingToCart
+                  ? 'Adding to Cart...'
+                  : '🛒 Add to Cart'}
+              </button>
+            </div>
+            {!isAuthenticated && (
+              <p className="action-hint">
+                ℹ️ You must be logged in to save items to your personal cart.
+              </p>
+            )}
           </div>
         </div>
       </div>

@@ -1,7 +1,10 @@
 import React from 'react';
 import { AuthStatus } from '../features/authentication/AuthStatus';
+import { useCart } from '../context/CartContext';
 
 export function Header({ currentView, onNavigate }) {
+  const { cartItemCount } = useCart();
+
   return (
     <header className="site-header">
       <div className="header-brand" onClick={() => onNavigate('catalog')}>
@@ -16,6 +19,15 @@ export function Header({ currentView, onNavigate }) {
         >
           Catalog
         </button>
+
+        <button
+          className={`nav-btn nav-cart-btn ${currentView === 'cart' ? 'active' : ''}`}
+          onClick={() => onNavigate('cart')}
+        >
+          🛒 Cart
+          {cartItemCount > 0 && <span className="cart-count-badge">{cartItemCount}</span>}
+        </button>
+
         <AuthStatus onNavigate={onNavigate} />
       </nav>
     </header>
