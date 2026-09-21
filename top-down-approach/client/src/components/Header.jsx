@@ -4,8 +4,10 @@ import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 
 export function Header({ currentView, onNavigate }) {
-  const { isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const { cartItemCount } = useCart();
+
+  const isAdmin = isAuthenticated && user?.role === 'ADMIN';
 
   return (
     <header className="site-header">
@@ -36,6 +38,15 @@ export function Header({ currentView, onNavigate }) {
             onClick={() => onNavigate('orders')}
           >
             📦 Orders
+          </button>
+        )}
+
+        {isAdmin && (
+          <button
+            className={`nav-btn btn-admin-nav ${currentView.startsWith('admin') ? 'active' : ''}`}
+            onClick={() => onNavigate('admin-dashboard')}
+          >
+            ⚙️ Admin
           </button>
         )}
 

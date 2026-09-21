@@ -156,3 +156,67 @@ export async function reduceProductStock(id, quantity) {
   return Promise.resolve(false);
 }
 
+/**
+ * Creates and persists a new product entity.
+ */
+export async function createProduct(productData) {
+  const id = `prod_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
+  const now = new Date().toISOString();
+
+  const newProduct = {
+    id,
+    name: productData.name,
+    description: productData.description,
+    price: Number(productData.price),
+    category: productData.category,
+    image: productData.image || '📦',
+    stock: Number(productData.stock),
+    createdAt: now,
+    updatedAt: now
+  };
+
+  products.push(newProduct);
+  return Promise.resolve({ ...newProduct });
+}
+
+/**
+ * Updates an existing product entity by ID.
+ */
+export async function updateProduct(id, productData) {
+  const index = products.findIndex(
+    (p) => p.id === id || p.id === `prod_${id.replace('p', '10')}` || (id === 'p1' && p.id === 'prod_101')
+  );
+
+  if (index === -1) return Promise.resolve(null);
+
+  const existing = products[index];
+  const updatedProduct = {
+    ...existing,
+    name: productData.name !== undefined ? productData.name : existing.name,
+    description: productData.description !== undefined ? productData.description : existing.description,
+    price: productData.price !== undefined ? Number(productData.price) : existing.price,
+    category: productData.category !== undefined ? productData.category : existing.category,
+    image: productData.image !== undefined ? productData.image : existing.image,
+    stock: productData.stock !== undefined ? Number(productData.stock) : existing.stock,
+    updatedAt: new Date().toISOString()
+  };
+
+  products[index] = updatedProduct;
+  return Promise.resolve({ ...updatedProduct });
+}
+
+/**
+ * Deletes a product entity by ID.
+ */
+export async function deleteProduct(id) {
+  const index = products.findIndex(
+    (p) => p.id === id || p.id === `prod_${id.replace('p', '10')}` || (id === 'p1' && p.id === 'prod_101')
+  );
+
+  if (index === -1) return Promise.resolve(false);
+
+  products.splice(index, 1);
+  return Promise.resolve(true);
+}
+
+

@@ -52,3 +52,31 @@ export async function findOrderById(id) {
   const order = orders.get(id);
   return Promise.resolve(order ? formatOrderEntity(order) : null);
 }
+
+/**
+ * Retrieves all orders across all users (newest first) for admin overview.
+ */
+export async function findAllOrders() {
+  const allOrders = [];
+  for (const order of orders.values()) {
+    allOrders.push(formatOrderEntity(order));
+  }
+  allOrders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  return Promise.resolve(allOrders);
+}
+
+/**
+ * Updates status of an existing order.
+ */
+export async function updateOrderStatus(id, newStatus) {
+  if (!id) return Promise.resolve(null);
+  const order = orders.get(id);
+  if (!order) return Promise.resolve(null);
+
+  order.status = newStatus;
+  order.updatedAt = new Date().toISOString();
+  orders.set(id, order);
+
+  return Promise.resolve(formatOrderEntity(order));
+}
+

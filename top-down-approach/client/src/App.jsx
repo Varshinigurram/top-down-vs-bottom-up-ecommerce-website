@@ -12,10 +12,19 @@ import { OrderDetailsView } from './views/OrderDetailsView';
 import { LoginView } from './views/LoginView';
 import { RegisterView } from './views/RegisterView';
 
+// Admin Views
+import { AdminDashboardView } from './views/admin/AdminDashboardView';
+import { AdminProductsView } from './views/admin/AdminProductsView';
+import { AdminProductFormView } from './views/admin/AdminProductFormView';
+import { AdminOrdersView } from './views/admin/AdminOrdersView';
+import { AdminOrderDetailsView } from './views/admin/AdminOrderDetailsView';
+
 function TopDownAppContent() {
   const [currentView, setCurrentView] = useState('catalog');
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
+  const [adminSelectedProductId, setAdminSelectedProductId] = useState(null);
+  const [adminSelectedOrderId, setAdminSelectedOrderId] = useState(null);
 
   const handleNavigate = (viewName, paramId = null) => {
     setCurrentView(viewName);
@@ -23,6 +32,10 @@ function TopDownAppContent() {
       setSelectedProductId(paramId);
     } else if (viewName === 'order-details') {
       setSelectedOrderId(paramId);
+    } else if (viewName === 'admin-product-edit') {
+      setAdminSelectedProductId(paramId);
+    } else if (viewName === 'admin-order-details') {
+      setAdminSelectedOrderId(paramId);
     }
   };
 
@@ -53,6 +66,32 @@ function TopDownAppContent() {
         )}
         {currentView === 'login' && <LoginView onNavigate={handleNavigate} />}
         {currentView === 'register' && <RegisterView onNavigate={handleNavigate} />}
+
+        {/* Administrator Routes */}
+        {currentView === 'admin-dashboard' && (
+          <AdminDashboardView onNavigate={handleNavigate} />
+        )}
+        {currentView === 'admin-products' && (
+          <AdminProductsView onNavigate={handleNavigate} />
+        )}
+        {currentView === 'admin-product-new' && (
+          <AdminProductFormView onNavigate={handleNavigate} />
+        )}
+        {currentView === 'admin-product-edit' && (
+          <AdminProductFormView
+            productId={adminSelectedProductId}
+            onNavigate={handleNavigate}
+          />
+        )}
+        {currentView === 'admin-orders' && (
+          <AdminOrdersView onNavigate={handleNavigate} />
+        )}
+        {currentView === 'admin-order-details' && (
+          <AdminOrderDetailsView
+            orderId={adminSelectedOrderId}
+            onNavigate={handleNavigate}
+          />
+        )}
       </main>
       <Footer />
     </div>
