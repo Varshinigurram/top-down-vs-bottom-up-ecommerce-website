@@ -4,7 +4,7 @@ import { getAllProducts, getProductById } from '../controllers/product.controlle
 const router = Router();
 
 /**
- * Top-Down API Routes: High-level REST endpoint contracts
+ * REST Endpoint Routes for Products
  */
 router.get('/products', getAllProducts);
 router.get('/products/:id', getProductById);

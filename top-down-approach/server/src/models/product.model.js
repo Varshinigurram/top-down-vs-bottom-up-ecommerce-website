@@ -1,52 +1,41 @@
 /**
- * Top-Down Architecture: Model Primitive Layer (Data abstraction layer ready for MongoDB)
+ * Product Domain Model Schema Definition
  */
 
-const placeholderProducts = [
-  {
-    id: 'p1',
-    title: 'Wireless Ergonomic Headset',
-    price: 99.99,
-    description: 'High-fidelity audio with active noise cancellation for professional use.',
-    category: 'Electronics',
-    icon: '🎧',
-    stock: 15
-  },
-  {
-    id: 'p2',
-    title: 'Mechanical Gaming Keyboard',
-    price: 129.50,
-    description: 'Tactile switches with customizable RGB backlighting and durable chassis.',
-    category: 'Electronics',
-    icon: '⌨️',
-    stock: 8
-  },
-  {
-    id: 'p3',
-    title: 'Smart Fitness Watch',
-    price: 149.00,
-    description: 'Tracks heart rate, sleep metrics, and workout performance continuously.',
-    category: 'Wearables',
-    icon: '⌚',
-    stock: 22
-  },
-  {
-    id: 'p4',
-    title: 'Ultra-Wide Desk Pad',
-    price: 24.99,
-    description: 'Smooth microfiber surface with stitched edges and non-slip rubber base.',
-    category: 'Accessories',
-    icon: '🖼️',
-    stock: 50
-  }
+export const PRODUCT_CATEGORIES = [
+  'Electronics',
+  'Home',
+  'Fashion',
+  'Accessories',
+  'Lifestyle'
 ];
 
-export async function findAllProducts() {
-  // Simulates database query abstraction
-  return Promise.resolve(placeholderProducts);
+/**
+ * Validates and formats product data object.
+ */
+export function validateProductSchema(product) {
+  if (!product || !product.name || typeof product.price !== 'number') {
+    return { valid: false, message: 'Invalid product schema attributes' };
+  }
+  return { valid: true };
 }
 
-export async function findProductById(id) {
-  const product = placeholderProducts.find((p) => p.id === id);
-  return Promise.resolve(product || null);
+/**
+ * Formats product entity for API response standardization.
+ */
+export function formatProductEntity(product) {
+  if (!product) return null;
+  return {
+    id: product.id,
+    name: product.name,
+    title: product.name, // Title alias for backwards interface compatibility
+    description: product.description || '',
+    price: Number(product.price),
+    category: product.category || 'General',
+    image: product.image || '📦',
+    icon: product.image || '📦',
+    stock: Number(product.stock || 0),
+    createdAt: product.createdAt || new Date().toISOString(),
+    updatedAt: product.updatedAt || new Date().toISOString()
+  };
 }
