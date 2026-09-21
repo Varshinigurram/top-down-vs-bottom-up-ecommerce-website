@@ -71,6 +71,50 @@ E-Commerce Website/
         └── package.json
 ```
 
+## How to Run the Applications
+
+Each approach has separate `client/` (Frontend React) and `server/` (Backend Express) sub-directories.
+
+### 1. Running the Bottom-Up Application (`bottom-up-approach`)
+
+Open two terminal windows:
+
+* **Terminal 1 - Backend Server** (Port 5002):
+  ```bash
+  cd bottom-up-approach/server
+  npm start
+  ```
+  *(Or from `bottom-up-approach/`: `npm run start:server`)*
+
+* **Terminal 2 - Frontend Client** (Port 3002):
+  ```bash
+  cd bottom-up-approach/client
+  npm run dev
+  ```
+  *(Or from `bottom-up-approach/`: `npm run dev:client`)*
+
+---
+
+### 2. Running the Top-Down Application (`top-down-approach`)
+
+Open two terminal windows:
+
+* **Terminal 1 - Backend Server** (Port 5001):
+  ```bash
+  cd top-down-approach/server
+  npm start
+  ```
+  *(Or from `top-down-approach/`: `npm run start:server`)*
+
+* **Terminal 2 - Frontend Client** (Port 3001):
+  ```bash
+  cd top-down-approach/client
+  npm run dev
+  ```
+  *(Or from `top-down-approach/`: `npm run dev:client`)*
+
+---
+
 ## Current Implementation Status
 - **Phase 1: Initial Foundation Setup (Completed)**
   - Runnable React + Vite frontend setup for both applications.
@@ -78,3 +122,4 @@ E-Commerce Website/
   - Basic shared placeholder product dataset.
   - Health check endpoints (`GET /api/health`) and product endpoints (`GET /api/products`).
   - Clear architectural boundaries establishing Top-Down vs Bottom-Up code organization.
+

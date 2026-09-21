@@ -1,0 +1,9 @@
+{
+  "name": "top-down-approach",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start:server": "npm --prefix server start",
+    "dev:client": "npm --prefix client run dev"
+  }
+}
