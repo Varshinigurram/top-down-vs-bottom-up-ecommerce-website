@@ -20,7 +20,7 @@
 | | 6. Authentication Middleware Primitive | **1 module** (`auth.middleware.js`) |
 | **Frontend Composition** | 7. Reusable Client Domain Services | **4 modules** (`authService`, `productService`, `cartService`, `orderService`) |
 | | 8. Global State Context Provider | **1 provider** (`AuthContext.jsx`) |
-| | 9. Composite Frontend UI Components | **14 components** (Product: 7, Cart: 3, Order: 3, Nav: 2) |
+| | 9. Composite Frontend UI Components | **15 components** (Product: 7, Cart: 3, Order: 3, Nav: 2) |
 | **Source Volume** | 10. Total Source Lines of Code (LOC) | **2,565 lines** |
 | | 10a. Non-blank, non-comment Code LOC | **2,421 lines** |
 | **Dependencies** | 11. Total Production Dependencies | **6 packages** (Client: 2, Server: 4 - `cookie-parser` added) |
