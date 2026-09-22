@@ -5,7 +5,10 @@ import { fetchProductsService, fetchProductByIdService } from '../services/produ
  */
 export async function handleGetProducts(req, res, next) {
   try {
-    const result = await fetchProductsService();
+    const result = await fetchProductsService({
+      search: req.query.search,
+      category: req.query.category
+    });
     res.status(200).json(result);
   } catch (err) {
     next(err);

@@ -16,7 +16,7 @@ export function AuthProvider({ children }) {
     setLoading(true);
     try {
       const data = await getCurrentUserApi();
-      const currentUser = data.user || data;
+      const currentUser = data?.data?.user || data?.user || data;
       setUser(currentUser);
       setStoredUser(currentUser);
     } catch (err) {
@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {
 
   const login = async (credentials) => {
     const data = await loginApi(credentials);
-    const loggedInUser = data.user || data;
+    const loggedInUser = data?.data?.user || data?.user || data;
     setUser(loggedInUser);
     setStoredUser(loggedInUser);
     return loggedInUser;
@@ -37,7 +37,7 @@ export function AuthProvider({ children }) {
 
   const register = async (userData) => {
     const data = await registerApi(userData);
-    const newUser = data.user || data;
+    const newUser = data?.data?.user || data?.user || data;
     setUser(newUser);
     setStoredUser(newUser);
     return newUser;

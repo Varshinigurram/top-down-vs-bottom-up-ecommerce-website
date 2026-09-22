@@ -28,8 +28,12 @@ export async function httpRequest(endpoint, options = {}) {
 
   let responseData = null;
   const contentType = response.headers.get('content-type');
-  if (contentType && contentType.includes('application/json')) {
-    responseData = await response.json();
+  if (contentType && contentType.toLowerCase().includes('application/json')) {
+    try {
+      responseData = await response.json();
+    } catch (e) {
+      responseData = null;
+    }
   }
 
   if (!response.ok) {
@@ -40,7 +44,7 @@ export async function httpRequest(endpoint, options = {}) {
     throw error;
   }
 
-  return responseData?.data !== undefined ? responseData.data : responseData;
+  return responseData;
 }
 
 export function apiGet(endpoint, options) {
