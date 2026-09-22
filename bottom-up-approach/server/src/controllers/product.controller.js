@@ -3,13 +3,21 @@ import { fetchProductsService, fetchProductByIdService } from '../services/produ
 /**
  * Bottom-Up Controller Layer: Connects service primitives to express HTTP routes
  */
-export function handleGetProducts(req, res) {
-  const result = fetchProductsService();
-  res.status(200).json(result);
+export async function handleGetProducts(req, res, next) {
+  try {
+    const result = await fetchProductsService();
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
 }
 
-export function handleGetProductById(req, res) {
-  const result = fetchProductByIdService(req.params.id);
-  const status = result.statusCode || 200;
-  res.status(status).json(result);
+export async function handleGetProductById(req, res, next) {
+  try {
+    const result = await fetchProductByIdService(req.params.id);
+    const status = result.statusCode || 200;
+    res.status(status).json(result);
+  } catch (err) {
+    next(err);
+  }
 }

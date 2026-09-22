@@ -1,13 +1,34 @@
 import React from 'react';
 
-/**
- * Bottom-Up Primitive Component: Base Button
- */
-export function Button({ children, onClick, variant = 'primary', className = '' }) {
-  const variantClass = variant === 'primary' ? 'ui-button-primary' : '';
+export function Button({
+  children,
+  type = 'button',
+  variant = 'primary', // 'primary', 'secondary', 'outline', 'danger', 'danger-outline'
+  size = 'md', // 'sm', 'md', 'lg'
+  disabled = false,
+  loading = false,
+  onClick,
+  className = '',
+  ...props
+}) {
+  const baseClass = `btn btn-${variant} btn-${size} ${className}`.trim();
+
   return (
-    <button className={`ui-button ${variantClass} ${className}`} onClick={onClick}>
-      {children}
+    <button
+      type={type}
+      className={baseClass}
+      disabled={disabled || loading}
+      onClick={onClick}
+      {...props}
+    >
+      {loading ? (
+        <span className="btn-spinner-wrapper">
+          <span className="btn-spinner" aria-hidden="true" />
+          <span>Processing...</span>
+        </span>
+      ) : (
+        children
+      )}
     </button>
   );
 }

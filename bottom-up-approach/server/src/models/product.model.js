@@ -1,57 +1,27 @@
 /**
- * Bottom-Up Architecture: Primitive Data Model & Validation Layer (Ready for MongoDB integration)
+ * Creates a raw Product domain entity primitive.
  */
-
-const placeholderProducts = [
-  {
-    id: 'p1',
-    title: 'Wireless Ergonomic Headset',
-    price: 99.99,
-    description: 'High-fidelity audio with active noise cancellation for professional use.',
-    category: 'Electronics',
-    icon: '🎧',
-    stock: 15
-  },
-  {
-    id: 'p2',
-    title: 'Mechanical Gaming Keyboard',
-    price: 129.50,
-    description: 'Tactile switches with customizable RGB backlighting and durable chassis.',
-    category: 'Electronics',
-    icon: '⌨️',
-    stock: 8
-  },
-  {
-    id: 'p3',
-    title: 'Smart Fitness Watch',
-    price: 149.00,
-    description: 'Tracks heart rate, sleep metrics, and workout performance continuously.',
-    category: 'Wearables',
-    icon: '⌚',
-    stock: 22
-  },
-  {
-    id: 'p4',
-    title: 'Ultra-Wide Desk Pad',
-    price: 24.99,
-    description: 'Smooth microfiber surface with stitched edges and non-slip rubber base.',
-    category: 'Accessories',
-    icon: '🖼️',
-    stock: 50
-  }
-];
-
-export function validateProductData(product) {
-  if (!product.title || typeof product.price !== 'number') {
-    return { valid: false, message: 'Invalid product schema' };
-  }
-  return { valid: true };
+export function createProductEntity({ id, name, description, price, category, image, stock, createdAt, updatedAt }) {
+  const now = new Date().toISOString();
+  return {
+    id: id || `prod_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+    name: name ? String(name).trim() : '',
+    title: name ? String(name).trim() : '', // Alias for title field compatibility
+    description: description ? String(description).trim() : '',
+    price: Number(price || 0),
+    category: category ? String(category).trim() : 'General',
+    image: image ? String(image).trim() : '📦',
+    icon: image ? String(image).trim() : '📦', // Alias for icon field compatibility
+    stock: Math.max(0, Number(stock || 0)),
+    createdAt: createdAt || now,
+    updatedAt: updatedAt || now
+  };
 }
 
-export function getAllProductsPrimitive() {
-  return placeholderProducts;
-}
-
-export function getProductByIdPrimitive(id) {
-  return placeholderProducts.find((p) => p.id === id) || null;
+/**
+ * Formats product entity for standardized output.
+ */
+export function formatProduct(product) {
+  if (!product) return null;
+  return createProductEntity(product);
 }
