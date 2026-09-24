@@ -23,7 +23,7 @@ export function CatalogView({ onViewDetails, onAddToCart }) {
     setError(null);
     try {
       const res = await getProductsApi(search, category);
-      setProducts(res.data || []);
+      setProducts(res?.data || []);
     } catch (err) {
       setError(err.message || 'Failed to load product catalog.');
     } finally {

@@ -27,7 +27,7 @@ export function ProductDetailsView({ productId, onBackToCatalog, onNavigate }) {
 
     try {
       const res = await getProductByIdApi(productId);
-      if (res && res.data) {
+      if (res?.data) {
         setProduct(res.data);
       } else {
         setNotFound(true);

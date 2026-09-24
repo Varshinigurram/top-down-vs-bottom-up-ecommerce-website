@@ -3,7 +3,7 @@
  * (Standard HTTP fetch wrapper with normalized error handling)
  */
 
-const API_BASE_URL = '/api';
+const API_BASE_URL = 'http://localhost:5002/api';
 
 export async function httpRequest(endpoint, options = {}) {
   const url = endpoint.startsWith('/') ? `${API_BASE_URL}${endpoint}` : `${API_BASE_URL}/${endpoint}`;
@@ -42,6 +42,10 @@ export async function httpRequest(endpoint, options = {}) {
     error.statusCode = response.status;
     error.data = responseData;
     throw error;
+  }
+
+  if (responseData === null) {
+    throw new Error(`Server returned a non-JSON response (${contentType || 'no content-type'}). Ensure the Bottom-Up backend is running on port 5002.`);
   }
 
   return responseData;
