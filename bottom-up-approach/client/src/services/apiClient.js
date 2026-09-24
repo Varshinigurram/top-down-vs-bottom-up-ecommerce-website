@@ -3,7 +3,7 @@
  * (Standard HTTP fetch wrapper with normalized error handling)
  */
 
-const API_BASE_URL = 'http://localhost:5002/api';
+const API_BASE_URL = '/api';
 
 export async function httpRequest(endpoint, options = {}) {
   const url = endpoint.startsWith('/') ? `${API_BASE_URL}${endpoint}` : `${API_BASE_URL}/${endpoint}`;
