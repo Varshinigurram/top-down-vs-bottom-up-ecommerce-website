@@ -826,4 +826,248 @@ body {
   margin-top: 0.5rem;
 }
 
+/* ==========================================================================
+   PHASE 12 — CART, CHECKOUT & ORDERS STYLES
+   ========================================================================== */
+.cart-header-feature {
+  margin-bottom: 1.5rem;
+}
+
+.cart-title-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cart-content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .cart-content-grid {
+    grid-template-columns: 1fr 340px;
+  }
+}
+
+.cart-actions-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .checkout-grid {
+    grid-template-columns: 1fr 340px;
+  }
+}
+
+.checkout-summary-feature {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+}
+
+.summary-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.summary-subtitle {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-bottom: 1.25rem;
+}
+
+.checkout-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 1rem;
+}
+
+.checkout-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkout-item-main {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.checkout-item-icon {
+  font-size: 1.75rem;
+}
+
+.checkout-item-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout-item-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.checkout-item-qty {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.checkout-totals-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.free-shipping-label {
+  color: #059669;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.grand-total {
+  font-size: 1.1rem;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+  color: #0f172a;
+}
+
+.total-amount {
+  color: #059669;
+}
+
+.checkout-action-card {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+}
+
+.user-email-notice {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Orders Feature */
+.order-filter-header-feature {
+  margin-bottom: 1.5rem;
+}
+
+.order-title-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.order-count-tag {
+  font-size: 0.85rem;
+  background-color: #f1f5f9;
+  color: #475569;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+.status-legend-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  background: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+}
+
+.legend-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.orders-list-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.order-details-content-feature {
+  margin-top: 1rem;
+}
+
+.order-meta-header {
+  background: #ffffff;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+}
+
+.meta-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-id-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.order-date {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+}
+
+.snapshot-note {
+  color: #64748b;
+  margin-bottom: 0.75rem;
+}
+
+.order-financials-card {
+  background: #ffffff;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+}
+
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 0.75rem; }
+.mt-4 { margin-top: 1rem; }
+.text-center { text-align: center; }
+
+
 

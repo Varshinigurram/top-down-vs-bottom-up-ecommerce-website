@@ -127,3 +127,19 @@ All backend REST API endpoints were verified using the automated test suite `ver
 
 - **Observable Equivalence**: The Bottom-Up application implements the exact customer authentication, catalog listing, search, category filtering, product details, stock visibility, and add-to-cart integration rules specified in `docs/system-specification.md`, matching the functional behavior of the frozen Top-Down baseline.
 - **Top-Down Baseline Protection**: Verified via `git status` that [top-down-approach/](file:///c:/Documents/3rd%20Year/Software%20Engineering/Project/E-Commerce%20Website/top-down-approach) and `docs/top-down-*.md` have **ZERO** changes and remain 100% frozen.
+
+---
+
+## 8. Defect Resolution Log
+
+### Defect 1: Catalog View Response Contract Mismatch
+- **Defect Description**: The Catalog UI failed on `http://localhost:3002` displaying "Catalog Load Error" with message `"Cannot read properties of null (reading 'data')"`.
+- **Root Cause**: Two contributing issues:
+  1. `apiClient.js` contained conditional response unwrapping (`return responseData?.data !== undefined ? responseData.data : responseData;`). When `responseData` was `null` or when `apiClient` returned raw array `[...]`, `CatalogView.jsx` attempted to access `res.data` on an object that was `null` (or array), producing `TypeError: Cannot read properties of null (reading 'data')`.
+  2. `product.controller.js` called `fetchProductsService()` without forwarding `req.query.search` and `req.query.category` from Express HTTP request query parameters.
+- **Fix Applied**:
+  1. Updated `apiClient.js` to return `responseData` directly, establishing ONE consistent response contract `{ success: true, data: ... }` across `apiClient` -> client services -> views.
+  2. Updated `CatalogView.jsx`, `ProductDetailsView.jsx`, and `AuthContext.jsx` to safely access `res?.data` using optional chaining.
+  3. Updated `product.controller.js` to forward `{ search: req.query.search, category: req.query.category }` to `fetchProductsService`.
+- **Verification**: Browser catalog loading verified on `http://localhost:3002`, HTTP search & category query params verified on backend port `5002`, production build passed, 14/14 API integration tests passed.
+

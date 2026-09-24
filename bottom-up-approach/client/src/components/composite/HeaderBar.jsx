@@ -1,10 +1,13 @@
 import React from 'react';
+import { useAuth } from '../../context/AuthContext';
 import { Badge } from '../primitives/Badge';
 import { Button } from '../primitives/Button';
 import { UserMenuBar } from './UserMenuBar';
 import { CartBadgeIndicator } from './CartBadgeIndicator';
 
 export function HeaderBar({ currentRoute = 'catalog', onNavigate, cartCount = 0 }) {
+  const { isAuthenticated } = useAuth();
+
   return (
     <header className="site-header">
       <div className="header-brand-section" onClick={() => onNavigate && onNavigate('catalog')}>
@@ -21,6 +24,16 @@ export function HeaderBar({ currentRoute = 'catalog', onNavigate, cartCount = 0 
         >
           Catalog
         </Button>
+
+        {isAuthenticated && (
+          <Button
+            variant={currentRoute === 'orders' || currentRoute === 'order-details' ? 'primary' : 'outline'}
+            size="sm"
+            onClick={() => onNavigate && onNavigate('orders')}
+          >
+            📦 My Orders
+          </Button>
+        )}
 
         <CartBadgeIndicator
           count={cartCount}

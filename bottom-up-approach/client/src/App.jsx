@@ -4,6 +4,10 @@ import { HeaderBar } from './components/composite/HeaderBar';
 import { FooterBar } from './components/composite/FooterBar';
 import { CatalogView } from './views/CatalogView';
 import { ProductDetailsView } from './views/ProductDetailsView';
+import { CartView } from './views/CartView';
+import { CheckoutView } from './views/CheckoutView';
+import { OrdersView } from './views/OrdersView';
+import { OrderDetailsView } from './views/OrderDetailsView';
 import { LoginView } from './views/LoginView';
 import { RegisterView } from './views/RegisterView';
 import { getCartApi } from './services/cartService';
@@ -12,6 +16,7 @@ function BottomUpAppContent() {
   const { isAuthenticated } = useAuth();
   const [currentRoute, setCurrentRoute] = useState('catalog');
   const [selectedProductId, setSelectedProductId] = useState(null);
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
   const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
@@ -24,13 +29,16 @@ function BottomUpAppContent() {
 
   const fetchCartCount = async () => {
     try {
-      const cart = await getCartApi();
+      const res = await getCartApi();
+      const cart = res?.data || res;
       if (cart && cart.items) {
         const totalQty = cart.items.reduce((sum, item) => sum + (item.quantity || 0), 0);
         setCartCount(totalQty);
+      } else {
+        setCartCount(0);
       }
     } catch (err) {
-      // Quiet fail if not logged in or cart empty
+      setCartCount(0);
     }
   };
 
@@ -38,6 +46,8 @@ function BottomUpAppContent() {
     setCurrentRoute(route);
     if (route === 'product-details') {
       setSelectedProductId(paramId);
+    } else if (route === 'order-details') {
+      setSelectedOrderId(paramId);
     }
     // Refresh cart badge count on navigation
     if (isAuthenticated) {
@@ -54,6 +64,10 @@ function BottomUpAppContent() {
     if (isAuthenticated) {
       fetchCartCount();
     }
+  };
+
+  const handleOrderPlaced = () => {
+    fetchCartCount();
   };
 
   return (
@@ -76,6 +90,31 @@ function BottomUpAppContent() {
           <ProductDetailsView
             productId={selectedProductId}
             onBackToCatalog={() => setCurrentRoute('catalog')}
+            onNavigate={handleNavigate}
+          />
+        )}
+
+        {currentRoute === 'cart' && (
+          <CartView
+            onNavigate={handleNavigate}
+            onCartUpdated={fetchCartCount}
+          />
+        )}
+
+        {currentRoute === 'checkout' && (
+          <CheckoutView
+            onNavigate={handleNavigate}
+            onOrderPlaced={handleOrderPlaced}
+          />
+        )}
+
+        {currentRoute === 'orders' && (
+          <OrdersView onNavigate={handleNavigate} />
+        )}
+
+        {currentRoute === 'order-details' && (
+          <OrderDetailsView
+            orderId={selectedOrderId}
             onNavigate={handleNavigate}
           />
         )}
