@@ -13,6 +13,7 @@ export function CatalogView({ onViewDetails, onAddToCart }) {
   const [category, setCategory] = useState('All');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [actionMessage, setActionMessage] = useState(null);
 
   useEffect(() => {
     fetchProducts();
@@ -36,6 +37,22 @@ export function CatalogView({ onViewDetails, onAddToCart }) {
     setCategory('All');
   };
 
+  const handleAddToCart = async (product) => {
+    setActionMessage(null);
+    try {
+      await onAddToCart?.(product);
+      setActionMessage({
+        type: 'success',
+        text: `${product.name || product.title} was added to your cart.`
+      });
+    } catch (err) {
+      setActionMessage({
+        type: 'error',
+        text: err.message || 'We could not add this item to your cart.'
+      });
+    }
+  };
+
   return (
     <div className="view-container catalog-view">
       <div className="catalog-header-section">
@@ -47,6 +64,12 @@ export function CatalogView({ onViewDetails, onAddToCart }) {
         <ProductSearch search={search} onSearchChange={setSearch} />
         <ProductFilters activeCategory={category} onCategoryChange={setCategory} />
       </div>
+
+      {actionMessage && (
+        <div className={`alert-banner ${actionMessage.type}`} role={actionMessage.type === 'error' ? 'alert' : 'status'}>
+          {actionMessage.text}
+        </div>
+      )}
 
       {loading && <LoadingState message="Loading catalog products..." />}
 
@@ -71,7 +94,7 @@ export function CatalogView({ onViewDetails, onAddToCart }) {
             <ProductGrid
               products={products}
               onViewDetails={onViewDetails}
-              onAddToCart={onAddToCart}
+              onAddToCart={handleAddToCart}
             />
           )}
         </>

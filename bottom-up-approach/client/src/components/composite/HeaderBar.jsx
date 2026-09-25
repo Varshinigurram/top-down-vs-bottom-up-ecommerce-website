@@ -13,8 +13,8 @@ export function HeaderBar({ currentRoute = 'catalog', onNavigate, cartCount = 0 
     <header className="site-header">
       <div className="header-brand-section" onClick={() => onNavigate && onNavigate('catalog')}>
         <span className="brand-logo">🛍️</span>
-        <h1 className="brand-title">Bottom-Up Store</h1>
-        <Badge variant="emerald">Bottom-Up Architecture</Badge>
+        <h1 className="brand-title">Meridian Market</h1>
+        <Badge variant="emerald" title="Case study implementation">Bottom-Up</Badge>
       </div>
 
       <nav className="header-nav">

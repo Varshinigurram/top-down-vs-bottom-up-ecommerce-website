@@ -4,6 +4,7 @@ import { fetchAdminOrderById, updateAdminOrderStatus } from '../../services/admi
 import { OrderStatusBadge } from '../../features/orders/OrderStatusBadge';
 import { OrderItemList } from '../../features/orders/OrderItemList';
 import { AdminOrderStatusControl } from '../../features/administration/AdminOrderStatusControl';
+import { formatCurrency } from '../../utils/formatCurrency';
 
 export function AdminOrderDetailsView({ orderId, onNavigate }) {
   const { user, isAuthenticated } = useAuth();
@@ -133,24 +134,24 @@ export function AdminOrderDetailsView({ orderId, onNavigate }) {
 
               <div className="summary-row">
                 <span>Subtotal</span>
-                <span>\${Number(order.subtotal).toFixed(2)}</span>
+                <span>{formatCurrency(order.subtotal)}</span>
               </div>
 
               <div className="summary-row">
                 <span>Shipping</span>
-                <span>{order.shipping === 0 ? 'FREE' : `\$${Number(order.shipping).toFixed(2)}`}</span>
+                <span>{order.shipping === 0 ? 'FREE' : formatCurrency(order.shipping)}</span>
               </div>
 
               <div className="summary-row">
                 <span>Tax (8%)</span>
-                <span>\${Number(order.tax).toFixed(2)}</span>
+                <span>{formatCurrency(order.tax)}</span>
               </div>
 
               <div className="summary-divider" />
 
               <div className="summary-row total-row">
                 <span>Order Total</span>
-                <span>\${Number(order.total).toFixed(2)}</span>
+                <span>{formatCurrency(order.total)}</span>
               </div>
             </div>
           </div>

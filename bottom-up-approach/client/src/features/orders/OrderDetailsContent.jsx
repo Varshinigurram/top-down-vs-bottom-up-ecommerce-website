@@ -1,21 +1,10 @@
 import React from 'react';
 import { OrderStatusBadge } from '../../components/composite/OrderStatusBadge';
 import { OrderItemList } from '../../components/composite/OrderItemList';
+import { formatCurrency, formatDate } from '../../utils/formatters';
 
 export function OrderDetailsContent({ order }) {
   if (!order) return null;
-
-  const formatDate = (isoString) => {
-    if (!isoString) return 'N/A';
-    try {
-      return new Date(isoString).toLocaleString('en-US', {
-        dateStyle: 'medium',
-        timeStyle: 'short'
-      });
-    } catch (e) {
-      return isoString;
-    }
-  };
 
   return (
     <div className="order-details-content-feature">
@@ -44,19 +33,19 @@ export function OrderDetailsContent({ order }) {
         <div className="financial-totals">
           <div className="total-row">
             <span>Items Subtotal</span>
-            <span>${Number(order.subtotal || 0).toFixed(2)}</span>
+            <span>{formatCurrency(order.subtotal)}</span>
           </div>
           <div className="total-row">
             <span>Shipping</span>
-            <span>FREE</span>
+            <span>{formatCurrency(0)}</span>
           </div>
           <div className="total-row">
             <span>Sales Tax (8%)</span>
-            <span>${Number(order.tax || 0).toFixed(2)}</span>
+            <span>{formatCurrency(order.tax)}</span>
           </div>
           <div className="total-row grand-total">
             <strong>Order Total</strong>
-            <strong className="total-amount">${Number(order.total || 0).toFixed(2)}</strong>
+            <strong className="total-amount">{formatCurrency(order.total)}</strong>
           </div>
         </div>
       </div>

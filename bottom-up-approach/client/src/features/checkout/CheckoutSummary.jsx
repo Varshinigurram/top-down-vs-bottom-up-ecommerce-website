@@ -1,5 +1,6 @@
 import React from 'react';
 import { ProductPrice } from '../../components/composite/ProductPrice';
+import { formatCurrency } from '../../utils/formatters';
 
 export function CheckoutSummary({ items = [], subtotal = 0, shipping = 0, tax = 0, total = 0 }) {
   return (
@@ -16,7 +17,7 @@ export function CheckoutSummary({ items = [], subtotal = 0, shipping = 0, tax = 
                 <span className="checkout-item-icon">{item.image || '📦'}</span>
                 <div className="checkout-item-meta">
                   <span className="checkout-item-name">{item.name}</span>
-                  <span className="checkout-item-qty">Qty: {item.quantity} × ${Number(item.price).toFixed(2)}</span>
+                  <span className="checkout-item-qty">Qty: {item.quantity} × {formatCurrency(item.price)}</span>
                 </div>
               </div>
               <div className="checkout-item-subtotal">
@@ -30,19 +31,19 @@ export function CheckoutSummary({ items = [], subtotal = 0, shipping = 0, tax = 
       <div className="checkout-totals-breakdown">
         <div className="total-row">
           <span>Subtotal</span>
-          <span>${Number(subtotal).toFixed(2)}</span>
+          <span>{formatCurrency(subtotal)}</span>
         </div>
         <div className="total-row">
           <span>Shipping (Standard Free)</span>
-          <span className="free-shipping-label">FREE</span>
+          <span className="free-shipping-label">{formatCurrency(shipping)}</span>
         </div>
         <div className="total-row">
           <span>Sales Tax (8%)</span>
-          <span>${Number(tax).toFixed(2)}</span>
+          <span>{formatCurrency(tax)}</span>
         </div>
         <div className="total-row grand-total">
           <strong>Order Total</strong>
-          <strong className="total-amount">${Number(total).toFixed(2)}</strong>
+          <strong className="total-amount">{formatCurrency(total)}</strong>
         </div>
       </div>
     </div>

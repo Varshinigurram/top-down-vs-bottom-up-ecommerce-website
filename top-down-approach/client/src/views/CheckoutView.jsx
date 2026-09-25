@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext';
 import { CheckoutItem } from '../features/orders/CheckoutItem';
 import { CheckoutSummary } from '../features/orders/CheckoutSummary';
 import * as orderService from '../services/orderService';
+import { formatCurrency } from '../utils/formatCurrency';
 
 export function CheckoutView({ onNavigate }) {
   const { isAuthenticated } = useAuth();
@@ -66,7 +67,7 @@ export function CheckoutView({ onNavigate }) {
             </div>
             <div className="success-detail-row">
               <span>Total Paid:</span>
-              <strong className="total-price-text">${Number(completedOrder.total).toFixed(2)}</strong>
+              <strong className="total-price-text">{formatCurrency(completedOrder.total)}</strong>
             </div>
           </div>
 

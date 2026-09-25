@@ -15,7 +15,7 @@ import { AdminProductsView } from './views/admin/AdminProductsView';
 import { AdminProductFormView } from './views/admin/AdminProductFormView';
 import { AdminOrdersView } from './views/admin/AdminOrdersView';
 import { AdminOrderDetailsView } from './views/admin/AdminOrderDetailsView';
-import { getCartApi } from './services/cartService';
+import { getCartApi, addToCartApi } from './services/cartService';
 
 function BottomUpAppContent() {
   const { isAuthenticated, user } = useAuth();
@@ -70,10 +70,19 @@ function BottomUpAppContent() {
     setCurrentRoute('product-details');
   };
 
-  const handleAddToCart = () => {
-    if (isAuthenticated) {
-      fetchCartCount();
+  const handleAddToCart = async (product) => {
+    if (!isAuthenticated) {
+      handleNavigate('login');
+      return;
     }
+    if (product && product.id) {
+      try {
+        await addToCartApi(product.id, 1);
+      } catch (err) {
+        throw err;
+      }
+    }
+    await fetchCartCount();
   };
 
   const handleOrderPlaced = () => {
@@ -117,6 +126,7 @@ function BottomUpAppContent() {
                 productId={selectedProductId}
                 onBackToCatalog={() => setCurrentRoute('catalog')}
                 onNavigate={handleNavigate}
+                onCartUpdated={fetchCartCount}
               />
             )}
 

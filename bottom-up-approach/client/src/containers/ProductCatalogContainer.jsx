@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ProductCard } from '../components/composite/ProductCard';
 
-const API_BASE_URL = 'http://localhost:5002/api';
+const API_BASE_URL = '/api';
 
 /**
  * Bottom-Up Container: Assembles composite ProductCard components into a product catalog grid

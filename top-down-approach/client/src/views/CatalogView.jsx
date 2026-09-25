@@ -4,8 +4,12 @@ import { CategoryFilter } from '../features/product-catalog/CategoryFilter';
 import { ProductGrid } from '../features/product-catalog/ProductGrid';
 import { ProductEmptyState } from '../features/product-catalog/ProductEmptyState';
 import { getProducts } from '../services/productService';
+import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 
-export function CatalogView({ onViewDetails }) {
+export function CatalogView({ onViewDetails, onNavigate }) {
+  const { isAuthenticated } = useAuth();
+  const { addItem } = useCart();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,12 +40,25 @@ export function CatalogView({ onViewDetails }) {
     setSelectedCategory('All');
   };
 
+  const handleAddToCart = async (product) => {
+    if (!isAuthenticated) {
+      if (onNavigate) onNavigate('login');
+      return;
+    }
+    if (!product?.id) return;
+    try {
+      await addItem(product.id, 1);
+    } catch (err) {
+      setError(err.message || 'Failed to add item to cart.');
+    }
+  };
+
   return (
     <section className="catalog-view-container">
       <header className="view-header">
         <div className="view-header-title">
-          <h2>Product Catalog & Discovery</h2>
-          <p>Top-Down View: System specs decompose into search, filtering, grid modules, and product detail navigation.</p>
+          <h2>Shop the Catalog</h2>
+          <p>Browse products, filter by category, and search by keyword.</p>
         </div>
         <span className="results-count-badge">
           {loading ? 'Searching...' : `${products.length} Products Found`}
@@ -58,10 +75,6 @@ export function CatalogView({ onViewDetails }) {
           selectedCategory={selectedCategory}
           onSelectCategory={setSelectedCategory}
         />
-      </div>
-
-      <div className="status-banner">
-        <strong>Design Pattern Note:</strong> Designed Top-Down starting from system-level requirements down to REST query params (`?search=${searchTerm}&category=${selectedCategory}`) and component trees.
       </div>
 
       {loading && (
@@ -89,7 +102,11 @@ export function CatalogView({ onViewDetails }) {
       )}
 
       {!loading && !error && products.length > 0 && (
-        <ProductGrid products={products} onViewDetails={onViewDetails} />
+        <ProductGrid
+          products={products}
+          onViewDetails={onViewDetails}
+          onAddToCart={handleAddToCart}
+        />
       )}
     </section>
   );

@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatCurrency } from '../../utils/formatCurrency';
 import { OrderStatusBadge } from './OrderStatusBadge';
 
 export function OrderCard({ order, onViewDetails }) {
@@ -40,7 +41,7 @@ export function OrderCard({ order, onViewDetails }) {
       <div className="order-card-footer">
         <div className="order-metrics">
           <span className="metric-count">{totalItemCount} item(s)</span>
-          <span className="metric-total">${Number(order.total).toFixed(2)}</span>
+          <span className="metric-total">{formatCurrency(order.total)}</span>
         </div>
 
         <button className="btn-secondary btn-sm" onClick={() => onViewDetails(order.id)}>

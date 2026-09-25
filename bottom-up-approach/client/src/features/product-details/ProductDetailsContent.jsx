@@ -8,7 +8,7 @@ import { ProductPrice } from '../../components/composite/ProductPrice';
 import { ProductStockIndicator } from '../../components/composite/ProductStockIndicator';
 import { ErrorState } from '../../components/primitives/FeedbackStates';
 
-export function ProductDetailsContent({ product, onNavigate }) {
+export function ProductDetailsContent({ product, onNavigate, onCartUpdated }) {
   const { isAuthenticated } = useAuth();
   const [quantity, setQuantity] = useState(1);
   const [adding, setAdding] = useState(false);
@@ -32,6 +32,7 @@ export function ProductDetailsContent({ product, onNavigate }) {
     try {
       await addToCartApi(product.id, quantity);
       setCartSuccess(true);
+      if (onCartUpdated) onCartUpdated();
       setTimeout(() => setCartSuccess(false), 4000);
     } catch (err) {
       setCartError(err.message || 'Failed to add product to cart.');
@@ -69,9 +70,8 @@ export function ProductDetailsContent({ product, onNavigate }) {
             <div className="details-quantity-row">
               <label htmlFor="product-quantity-select">Quantity:</label>
               <QuantityControl
-                value={quantity}
-                min={1}
-                max={product.stock}
+                quantity={quantity}
+                maxStock={product.stock}
                 onChange={setQuantity}
                 disabled={adding}
               />

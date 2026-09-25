@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatCurrency } from '../../utils/formatCurrency';
 
 export function OrderItemList({ items }) {
   if (!items || items.length === 0) return null;
@@ -25,9 +26,9 @@ export function OrderItemList({ items }) {
                     <span className="receipt-name">{item.productName}</span>
                   </div>
                 </td>
-                <td>${Number(item.unitPrice).toFixed(2)}</td>
+                <td>{formatCurrency(item.unitPrice)}</td>
                 <td>{item.quantity}</td>
-                <td className="text-right font-bold">${Number(item.subtotal).toFixed(2)}</td>
+                <td className="text-right font-bold">{formatCurrency(item.subtotal)}</td>
               </tr>
             ))}
           </tbody>

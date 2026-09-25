@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getProductById } from '../services/productService';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
+import { formatCurrency } from '../utils/formatCurrency';
 
 export function ProductDetailsView({ productId, onBackToCatalog, onNavigate }) {
   const { isAuthenticated } = useAuth();
@@ -116,7 +117,7 @@ export function ProductDetailsView({ productId, onBackToCatalog, onNavigate }) {
             <span className="details-category-sub">{product.category}</span>
             <h1 className="details-title">{product.name || product.title}</h1>
             <div className="details-price-row">
-              <span className="details-price">${Number(product.price).toFixed(2)}</span>
+              <span className="details-price">{formatCurrency(product.price)}</span>
               <span className={`details-stock-badge ${inStock ? 'in-stock' : 'out-of-stock'}`}>
                 {inStock ? `In Stock (${product.stock} units)` : 'Currently Out of Stock'}
               </span>

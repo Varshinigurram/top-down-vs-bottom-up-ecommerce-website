@@ -4,7 +4,14 @@
 
 export function formatCurrency(amount) {
   const num = Number(amount || 0);
-  return `\$${num.toFixed(2)}`;
+  if (!Number.isFinite(num)) return '₹0';
+
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  }).format(num);
 }
 
 export function formatDate(dateString, options = {}) {

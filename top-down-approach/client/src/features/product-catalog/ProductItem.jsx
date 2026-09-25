@@ -1,6 +1,7 @@
 import React from 'react';
+import { formatCurrency } from '../../utils/formatCurrency';
 
-export function ProductItem({ product, onViewDetails }) {
+export function ProductItem({ product, onViewDetails, onAddToCart }) {
   const inStock = product.stock > 0;
 
   return (
@@ -17,20 +18,32 @@ export function ProductItem({ product, onViewDetails }) {
 
       <div className="product-card-footer">
         <div className="price-and-stock">
-          <span className="product-price">${Number(product.price).toFixed(2)}</span>
+          <span className="product-price">{formatCurrency(product.price)}</span>
           <span className={`stock-status ${inStock ? 'in-stock' : 'out-of-stock'}`}>
             {inStock ? `${product.stock} in stock` : 'Out of stock'}
           </span>
         </div>
-        <button
-          className="btn-details-action"
-          onClick={(e) => {
-            e.stopPropagation();
-            if (onViewDetails) onViewDetails(product.id);
-          }}
-        >
-          View Details →
-        </button>
+        <div className="product-card-actions">
+          <button
+            className="btn-secondary btn-sm"
+            disabled={!inStock}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (onAddToCart) onAddToCart(product);
+            }}
+          >
+            {inStock ? 'Add to Cart' : 'Sold Out'}
+          </button>
+          <button
+            className="btn-details-action"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (onViewDetails) onViewDetails(product.id);
+            }}
+          >
+            View Details →
+          </button>
+        </div>
       </div>
     </div>
   );

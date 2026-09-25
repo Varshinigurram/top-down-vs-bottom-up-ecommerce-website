@@ -49,7 +49,10 @@ function TopDownAppContent() {
       <Header currentView={currentView} onNavigate={handleNavigate} />
       <main className="main-content">
         {currentView === 'catalog' && (
-          <CatalogView onViewDetails={handleViewProductDetails} />
+          <CatalogView
+            onViewDetails={handleViewProductDetails}
+            onNavigate={handleNavigate}
+          />
         )}
         {currentView === 'product-details' && (
           <ProductDetailsView

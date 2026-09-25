@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatCurrency } from '../../utils/formatCurrency';
 import { QuantityControl } from './QuantityControl';
 
 export function CartItem({ item, onUpdateQuantity, onRemove, disabled = false }) {
@@ -11,7 +12,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove, disabled = false })
       <div className="cart-item-details">
         <span className="cart-item-category">{item.category}</span>
         <h4 className="cart-item-title">{item.name}</h4>
-        <span className="cart-item-unit-price">${Number(item.price).toFixed(2)} each</span>
+        <span className="cart-item-unit-price">{formatCurrency(item.price)} each</span>
       </div>
 
       <div className="cart-item-quantity">
@@ -24,7 +25,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove, disabled = false })
       </div>
 
       <div className="cart-item-subtotal">
-        <span className="subtotal-amount">${Number(item.subtotal).toFixed(2)}</span>
+        <span className="subtotal-amount">{formatCurrency(item.subtotal)}</span>
       </div>
 
       <div className="cart-item-action">

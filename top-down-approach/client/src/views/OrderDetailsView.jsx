@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { OrderStatusBadge } from '../features/orders/OrderStatusBadge';
+import { formatCurrency } from '../utils/formatCurrency';
 import { OrderItemList } from '../features/orders/OrderItemList';
 import * as orderService from '../services/orderService';
 
@@ -113,20 +114,20 @@ export function OrderDetailsView({ orderId, onNavigate }) {
           <div className="receipt-financials">
             <div className="summary-row">
               <span>Items Subtotal:</span>
-              <span className="summary-value">${Number(order.subtotal).toFixed(2)}</span>
+              <span className="summary-value">{formatCurrency(order.subtotal)}</span>
             </div>
             <div className="summary-row">
-              <span>Standard Express Shipping:</span>
-              <span className="summary-value free-shipping">FREE</span>
+              <span>Shipping:</span>
+              <span className="summary-value free-shipping">{formatCurrency(0)}</span>
             </div>
             <div className="summary-row">
-              <span>Sales Tax (8%):</span>
-              <span className="summary-value">${Number(order.tax).toFixed(2)}</span>
+              <span>Tax (8%):</span>
+              <span className="summary-value">{formatCurrency(order.tax)}</span>
             </div>
             <div className="summary-divider"></div>
             <div className="summary-row total-row">
-              <span>Total Paid:</span>
-              <span className="total-amount">${Number(order.total).toFixed(2)}</span>
+              <span>Total:</span>
+              <span className="total-amount">{formatCurrency(order.total)}</span>
             </div>
           </div>
         </div>

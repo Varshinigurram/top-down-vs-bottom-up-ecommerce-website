@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatCurrency } from '../../utils/formatCurrency';
 
 export function CartSummary({ totalItems, subtotal, onProceedToCheckout }) {
   const estimatedShipping = 0; // Free shipping promo
@@ -16,24 +17,24 @@ export function CartSummary({ totalItems, subtotal, onProceedToCheckout }) {
 
       <div className="summary-row">
         <span>Cart Subtotal:</span>
-        <span className="summary-value">${Number(subtotal).toFixed(2)}</span>
+        <span className="summary-value">{formatCurrency(subtotal)}</span>
       </div>
 
       <div className="summary-row">
-        <span>Estimated Express Shipping:</span>
-        <span className="summary-value free-shipping">FREE</span>
+        <span>Shipping:</span>
+        <span className="summary-value free-shipping">{formatCurrency(0)}</span>
       </div>
 
       <div className="summary-row">
-        <span>Estimated Sales Tax (8%):</span>
-        <span className="summary-value">${estimatedTax.toFixed(2)}</span>
+        <span>Tax (8%):</span>
+        <span className="summary-value">{formatCurrency(estimatedTax)}</span>
       </div>
 
       <div className="summary-divider"></div>
 
       <div className="summary-row total-row">
-        <span>Estimated Order Total:</span>
-        <span className="total-amount">${totalAmount.toFixed(2)}</span>
+        <span>Estimated Total:</span>
+        <span className="total-amount">{formatCurrency(totalAmount)}</span>
       </div>
 
       <button

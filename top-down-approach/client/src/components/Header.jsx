@@ -12,8 +12,8 @@ export function Header({ currentView, onNavigate }) {
   return (
     <header className="site-header">
       <div className="header-brand" onClick={() => onNavigate('catalog')}>
-        <h1>Top-Down E-Commerce Store</h1>
-        <span className="badge-paradigm">Top-Down Architecture</span>
+        <h1>Meridian Market</h1>
+        <span className="badge-paradigm" title="Case study implementation">Top-Down</span>
       </div>
 
       <nav className="header-nav">

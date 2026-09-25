@@ -92,7 +92,7 @@ export function AdminProductForm({ initialData, onSubmit, onCancel, isSubmitting
 
       <div className="form-row-two">
         <div className="form-group">
-          <label htmlFor="prod-price">Price (\$) *</label>
+          <label htmlFor="prod-price">Price (INR) *</label>
           <input
             id="prod-price"
             type="number"

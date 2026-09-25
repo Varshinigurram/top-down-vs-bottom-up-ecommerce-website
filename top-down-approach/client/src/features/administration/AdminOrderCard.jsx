@@ -1,5 +1,6 @@
 import React from 'react';
 import { OrderStatusBadge } from '../orders/OrderStatusBadge';
+import { formatCurrency } from '../../utils/formatCurrency';
 
 export function AdminOrderCard({ order, onViewDetails }) {
   if (!order) return null;
@@ -26,7 +27,7 @@ export function AdminOrderCard({ order, onViewDetails }) {
       <div className="order-card-meta">
         <span>📅 {formattedDate}</span>
         <span>📦 {itemCount} {itemCount === 1 ? 'item' : 'items'}</span>
-        <span>💰 Total: <strong>\${Number(order.total).toFixed(2)}</strong></span>
+        <span>💰 Total: <strong>{formatCurrency(order.total)}</strong></span>
       </div>
 
       <div className="order-card-footer">

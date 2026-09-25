@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatCurrency } from '../../utils/formatCurrency';
 
 export function AdminProductTable({ products, onEdit, onDelete }) {
   if (!products || products.length === 0) {
@@ -35,7 +36,7 @@ export function AdminProductTable({ products, onEdit, onDelete }) {
               <td>
                 <span className="category-pill">{product.category}</span>
               </td>
-              <td className="product-price-cell">\${Number(product.price).toFixed(2)}</td>
+              <td className="product-price-cell">{formatCurrency(product.price)}</td>
               <td>
                 <span className={`stock-badge ${product.stock < 10 ? 'stock-low' : 'stock-ok'}`}>
                   {product.stock} left
@@ -75,7 +76,7 @@ export function AdminProductTable({ products, onEdit, onDelete }) {
             </div>
             <div className="mobile-card-details">
               <div>Category: <span className="category-pill">{product.category}</span></div>
-              <div>Price: <strong>\${Number(product.price).toFixed(2)}</strong></div>
+              <div>Price: <strong>{formatCurrency(product.price)}</strong></div>
               <div>
                 Stock:{' '}
                 <span className={`stock-badge ${product.stock < 10 ? 'stock-low' : 'stock-ok'}`}>

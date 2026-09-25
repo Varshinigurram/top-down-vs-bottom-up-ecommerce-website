@@ -4,7 +4,7 @@ import { ProductDetailsContent } from '../features/product-details/ProductDetail
 import { Button } from '../components/primitives/Button';
 import { LoadingState, ErrorState, EmptyState } from '../components/primitives/FeedbackStates';
 
-export function ProductDetailsView({ productId, onBackToCatalog, onNavigate }) {
+export function ProductDetailsView({ productId, onBackToCatalog, onNavigate, onCartUpdated }) {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -72,6 +72,7 @@ export function ProductDetailsView({ productId, onBackToCatalog, onNavigate }) {
         <ProductDetailsContent
           product={product}
           onNavigate={onNavigate}
+          onCartUpdated={onCartUpdated}
         />
       )}
     </div>
