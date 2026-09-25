@@ -6,7 +6,8 @@ import { UserMenuBar } from './UserMenuBar';
 import { CartBadgeIndicator } from './CartBadgeIndicator';
 
 export function HeaderBar({ currentRoute = 'catalog', onNavigate, cartCount = 0 }) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+  const isAdmin = user?.role === 'ADMIN';
 
   return (
     <header className="site-header">
@@ -25,7 +26,7 @@ export function HeaderBar({ currentRoute = 'catalog', onNavigate, cartCount = 0 
           Catalog
         </Button>
 
-        {isAuthenticated && (
+        {isAuthenticated && !isAdmin && (
           <Button
             variant={currentRoute === 'orders' || currentRoute === 'order-details' ? 'primary' : 'outline'}
             size="sm"
@@ -33,6 +34,32 @@ export function HeaderBar({ currentRoute = 'catalog', onNavigate, cartCount = 0 
           >
             📦 My Orders
           </Button>
+        )}
+
+        {isAdmin && (
+          <>
+            <Button
+              variant={currentRoute === 'admin-dashboard' ? 'primary' : 'outline'}
+              size="sm"
+              onClick={() => onNavigate && onNavigate('admin-dashboard')}
+            >
+              📊 Dashboard
+            </Button>
+            <Button
+              variant={currentRoute === 'admin-products' || currentRoute === 'admin-product-new' || currentRoute === 'admin-product-edit' ? 'primary' : 'outline'}
+              size="sm"
+              onClick={() => onNavigate && onNavigate('admin-products')}
+            >
+              📦 Products
+            </Button>
+            <Button
+              variant={currentRoute === 'admin-orders' || currentRoute === 'admin-order-details' ? 'primary' : 'outline'}
+              size="sm"
+              onClick={() => onNavigate && onNavigate('admin-orders')}
+            >
+              📋 Orders
+            </Button>
+          </>
         )}
 
         <CartBadgeIndicator

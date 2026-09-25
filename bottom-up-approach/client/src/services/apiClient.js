@@ -63,6 +63,10 @@ export function apiPut(endpoint, body, options) {
   return httpRequest(endpoint, { ...options, method: 'PUT', body });
 }
 
+export function apiPatch(endpoint, body, options) {
+  return httpRequest(endpoint, { ...options, method: 'PATCH', body });
+}
+
 export function apiDelete(endpoint, options) {
   return httpRequest(endpoint, { ...options, method: 'DELETE' });
 }

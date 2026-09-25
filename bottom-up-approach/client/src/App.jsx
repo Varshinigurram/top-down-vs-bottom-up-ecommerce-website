@@ -10,10 +10,15 @@ import { OrdersView } from './views/OrdersView';
 import { OrderDetailsView } from './views/OrderDetailsView';
 import { LoginView } from './views/LoginView';
 import { RegisterView } from './views/RegisterView';
+import { AdminDashboardView } from './views/admin/AdminDashboardView';
+import { AdminProductsView } from './views/admin/AdminProductsView';
+import { AdminProductFormView } from './views/admin/AdminProductFormView';
+import { AdminOrdersView } from './views/admin/AdminOrdersView';
+import { AdminOrderDetailsView } from './views/admin/AdminOrderDetailsView';
 import { getCartApi } from './services/cartService';
 
 function BottomUpAppContent() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const [currentRoute, setCurrentRoute] = useState('catalog');
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
@@ -42,14 +47,19 @@ function BottomUpAppContent() {
     }
   };
 
-  const handleNavigate = (route, paramId = null) => {
+  const handleNavigate = (route, options = null) => {
     setCurrentRoute(route);
-    if (route === 'product-details') {
-      setSelectedProductId(paramId);
-    } else if (route === 'order-details') {
-      setSelectedOrderId(paramId);
+    if (typeof options === 'string' || typeof options === 'number') {
+      if (route === 'product-details' || route === 'admin-product-edit') {
+        setSelectedProductId(options);
+      } else if (route === 'order-details' || route === 'admin-order-details') {
+        setSelectedOrderId(options);
+      }
+    } else if (options && typeof options === 'object') {
+      if (options.productId) setSelectedProductId(options.productId);
+      if (options.orderId) setSelectedOrderId(options.orderId);
     }
-    // Refresh cart badge count on navigation
+
     if (isAuthenticated) {
       fetchCartCount();
     }
@@ -70,6 +80,9 @@ function BottomUpAppContent() {
     fetchCartCount();
   };
 
+  const isAdminRoute = currentRoute.startsWith('admin-');
+  const isAuthorizedAdmin = user?.role === 'ADMIN';
+
   return (
     <div className="app-container">
       <HeaderBar
@@ -79,52 +92,92 @@ function BottomUpAppContent() {
       />
 
       <main className="main-content">
-        {currentRoute === 'catalog' && (
-          <CatalogView
-            onViewDetails={handleViewProductDetails}
-            onAddToCart={handleAddToCart}
-          />
-        )}
+        {/* Admin Route Guarding */}
+        {isAdminRoute && !isAuthorizedAdmin ? (
+          <div className="view-container access-denied-view">
+            <div className="ui-card error-card">
+              <h2>🚫 403 Access Forbidden</h2>
+              <p>You do not have administrative privileges to access this area.</p>
+              <button className="ui-button primary-button" onClick={() => handleNavigate('catalog')}>
+                Return to Catalog
+              </button>
+            </div>
+          </div>
+        ) : (
+          <>
+            {currentRoute === 'catalog' && (
+              <CatalogView
+                onViewDetails={handleViewProductDetails}
+                onAddToCart={handleAddToCart}
+              />
+            )}
 
-        {currentRoute === 'product-details' && (
-          <ProductDetailsView
-            productId={selectedProductId}
-            onBackToCatalog={() => setCurrentRoute('catalog')}
-            onNavigate={handleNavigate}
-          />
-        )}
+            {currentRoute === 'product-details' && (
+              <ProductDetailsView
+                productId={selectedProductId}
+                onBackToCatalog={() => setCurrentRoute('catalog')}
+                onNavigate={handleNavigate}
+              />
+            )}
 
-        {currentRoute === 'cart' && (
-          <CartView
-            onNavigate={handleNavigate}
-            onCartUpdated={fetchCartCount}
-          />
-        )}
+            {currentRoute === 'cart' && (
+              <CartView
+                onNavigate={handleNavigate}
+                onCartUpdated={fetchCartCount}
+              />
+            )}
 
-        {currentRoute === 'checkout' && (
-          <CheckoutView
-            onNavigate={handleNavigate}
-            onOrderPlaced={handleOrderPlaced}
-          />
-        )}
+            {currentRoute === 'checkout' && (
+              <CheckoutView
+                onNavigate={handleNavigate}
+                onOrderPlaced={handleOrderPlaced}
+              />
+            )}
 
-        {currentRoute === 'orders' && (
-          <OrdersView onNavigate={handleNavigate} />
-        )}
+            {currentRoute === 'orders' && (
+              <OrdersView onNavigate={handleNavigate} />
+            )}
 
-        {currentRoute === 'order-details' && (
-          <OrderDetailsView
-            orderId={selectedOrderId}
-            onNavigate={handleNavigate}
-          />
-        )}
+            {currentRoute === 'order-details' && (
+              <OrderDetailsView
+                orderId={selectedOrderId}
+                onNavigate={handleNavigate}
+              />
+            )}
 
-        {currentRoute === 'login' && (
-          <LoginView onNavigate={handleNavigate} />
-        )}
+            {currentRoute === 'login' && (
+              <LoginView onNavigate={handleNavigate} />
+            )}
 
-        {currentRoute === 'register' && (
-          <RegisterView onNavigate={handleNavigate} />
+            {currentRoute === 'register' && (
+              <RegisterView onNavigate={handleNavigate} />
+            )}
+
+            {/* Admin Views */}
+            {currentRoute === 'admin-dashboard' && (
+              <AdminDashboardView onNavigate={handleNavigate} />
+            )}
+
+            {currentRoute === 'admin-products' && (
+              <AdminProductsView onNavigate={handleNavigate} />
+            )}
+
+            {currentRoute === 'admin-product-new' && (
+              <AdminProductFormView onNavigate={handleNavigate} />
+            )}
+
+            {currentRoute === 'admin-product-edit' && (
+              <AdminProductFormView productId={selectedProductId} onNavigate={handleNavigate} />
+            )}
+
+            {currentRoute === 'admin-orders' && (
+              <AdminOrdersView onNavigate={handleNavigate} />
+            )}
+
+            {currentRoute === 'admin-order-details' && (
+              <AdminOrderDetailsView orderId={selectedOrderId} onNavigate={handleNavigate} />
+            )}
+          </>
         )}
       </main>
 

@@ -1,6 +1,8 @@
 import { findCartByUserId, deleteCartByUserId } from '../repositories/cart.repository.js';
 import { findProductById, reduceProductStock } from '../repositories/product.repository.js';
-import { createOrder, findOrdersByUserId, findOrderById } from '../repositories/order.repository.js';
+import { createOrder, findOrdersByUserId, findOrderById, findAllOrders, updateOrderStatus } from '../repositories/order.repository.js';
+import { findUserById } from '../repositories/user.repository.js';
+import { isValidStatus, canTransitionStatus } from '../utils/orderStatusTransition.js';
 import { validateOrderCart } from '../validators/order.validator.js';
 import { calculateCartSubtotal, calculateShipping, calculateTax, calculateOrderTotal } from '../utils/calculations.js';
 import { createOrderItemSnapshot } from '../models/order.model.js';
@@ -117,3 +119,73 @@ export async function getOrderByIdService(userId, orderId) {
 
   return order;
 }
+
+export async function getAllOrdersAdminService() {
+  const allOrders = await findAllOrders();
+  const enrichedOrders = [];
+  for (const order of allOrders) {
+    const user = await findUserById(order.userId);
+    enrichedOrders.push({
+      ...order,
+      customerEmail: user ? user.email : 'Unknown User',
+      customerName: user ? user.name : 'Unknown User'
+    });
+  }
+  return enrichedOrders;
+}
+
+export async function getOrderByIdAdminService(orderId) {
+  if (!orderId) {
+    const error = new Error('Order ID is required.');
+    error.statusCode = 400;
+    throw error;
+  }
+  const order = await findOrderById(orderId);
+  if (!order) {
+    const error = new Error(`Order with ID '${orderId}' not found.`);
+    error.statusCode = 404;
+    throw error;
+  }
+  const user = await findUserById(order.userId);
+  return {
+    ...order,
+    customerEmail: user ? user.email : 'Unknown User',
+    customerName: user ? user.name : 'Unknown User'
+  };
+}
+
+export async function updateOrderStatusAdminService(orderId, newStatus) {
+  if (!orderId) {
+    const error = new Error('Order ID is required.');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const order = await findOrderById(orderId);
+  if (!order) {
+    const error = new Error(`Order with ID '${orderId}' not found.`);
+    error.statusCode = 404;
+    throw error;
+  }
+
+  if (!isValidStatus(newStatus)) {
+    const error = new Error(`Invalid status '${newStatus}'.`);
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (!canTransitionStatus(order.status, newStatus)) {
+    const error = new Error(`Invalid status transition from '${order.status}' to '${newStatus}'.`);
+    error.statusCode = 409;
+    throw error;
+  }
+
+  const updated = await updateOrderStatus(orderId, newStatus);
+  const user = await findUserById(updated.userId);
+  return {
+    ...updated,
+    customerEmail: user ? user.email : 'Unknown User',
+    customerName: user ? user.name : 'Unknown User'
+  };
+}
+
