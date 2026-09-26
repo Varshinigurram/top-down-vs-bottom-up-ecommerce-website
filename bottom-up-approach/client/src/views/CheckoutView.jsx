@@ -140,7 +140,7 @@ export function CheckoutView({ onNavigate, onOrderPlaced }) {
                 disabled={submitting}
                 onClick={handleConfirmOrder}
               >
-                {submitting ? '🔄 Processing Order...' : '🛍️ Confirm & Place Order'}
+                {submitting ? 'Processing Order...' : 'Confirm & Place Order'}
               </Button>
 
               <Button

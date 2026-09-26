@@ -27,7 +27,7 @@ export function CartItemRow({ item, onUpdateQuantity, onRemove }) {
           onClick={() => onRemove(item.productId)}
           title="Remove item"
         >
-          🗑️
+          Remove
         </Button>
       </div>
     </div>

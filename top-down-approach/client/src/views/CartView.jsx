@@ -35,16 +35,12 @@ export function CartView({ onNavigate }) {
       <header className="view-header">
         <div>
           <h2>Your Shopping Cart</h2>
-          <p>Top-Down View: User cart requirements decomposed into item rows, quantity controls, and total summary.</p>
+          <p>Review your selected essentials before placing your order.</p>
         </div>
         <button className="btn-secondary" onClick={() => onNavigate('catalog')}>
           ← Continue Shopping
         </button>
       </header>
-
-      <div className="status-banner">
-        <strong>Design Pattern Note:</strong> Server calculates prices & subtotals authoritatively via REST API endpoints (`/api/cart`).
-      </div>
 
       {error && <div className="alert-banner error">{error}</div>}
 

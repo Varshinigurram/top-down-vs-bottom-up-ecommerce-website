@@ -56,8 +56,9 @@ export function CatalogView({ onViewDetails, onAddToCart }) {
   return (
     <div className="view-container catalog-view">
       <div className="catalog-header-section">
-        <h1 className="view-title">Product Catalog</h1>
-        <p className="view-subtitle">Browse items across our store categories or search by keyword.</p>
+        <span className="catalog-eyebrow">BOTTOM-UP APPROACH / PRODUCT CATALOG</span>
+        <h1 className="view-title">Explore the catalog.</h1>
+        <p className="view-subtitle">Practical products across Electronics, Home, Fashion, Accessories and Lifestyle.</p>
       </div>
 
       <div className="catalog-toolbar">
@@ -77,6 +78,7 @@ export function CatalogView({ onViewDetails, onAddToCart }) {
         <ErrorState
           title="Catalog Load Error"
           message={error}
+          onRetry={fetchProducts}
         />
       )}
 

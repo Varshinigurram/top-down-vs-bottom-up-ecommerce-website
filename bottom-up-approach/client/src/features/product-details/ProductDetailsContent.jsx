@@ -45,7 +45,9 @@ export function ProductDetailsContent({ product, onNavigate, onCartUpdated }) {
     <div className="product-details-content-feature">
       <div className="details-grid">
         <div className="details-media">
-          <div className="product-image-large">{product.image || '📦'}</div>
+          <div className="product-image-large">
+            <img src={product.image || product.icon || '/images/product-default.svg'} alt={product.name || product.title || 'Product'} />
+          </div>
         </div>
 
         <div className="details-info">
@@ -98,7 +100,7 @@ export function ProductDetailsContent({ product, onNavigate, onCartUpdated }) {
               disabled={isOutOfStock || adding}
               onClick={handleAddToCart}
             >
-              🛒 {adding ? 'Adding to Cart...' : isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
+              {adding ? 'Adding to Cart...' : isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
             </Button>
           </div>
 

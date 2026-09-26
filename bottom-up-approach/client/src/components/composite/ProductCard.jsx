@@ -12,7 +12,9 @@ export function ProductCard({ product, onAddToCart, onViewDetails }) {
   return (
     <div className="ui-card product-card">
       <div className="product-card-top" onClick={() => onViewDetails && onViewDetails(product.id)}>
-        <div className="product-image-placeholder">{product.image || product.icon || '📦'}</div>
+        <div className="product-image-placeholder">
+          <img src={product.image || product.icon || '/images/product-default.svg'} alt="" />
+        </div>
         <div className="product-meta-row">
           <ProductBadge category={product.category} />
           <ProductStockIndicator stock={product.stock} />
@@ -29,7 +31,7 @@ export function ProductCard({ product, onAddToCart, onViewDetails }) {
           disabled={isOutOfStock}
           onClick={() => onAddToCart && onAddToCart(product)}
         >
-          🛒 {isOutOfStock ? 'Sold Out' : 'Add to Cart'}
+          {isOutOfStock ? 'Sold Out' : 'Add to Cart'}
         </Button>
       </div>
     </div>

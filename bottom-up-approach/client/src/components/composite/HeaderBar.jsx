@@ -1,6 +1,5 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Badge } from '../primitives/Badge';
 import { Button } from '../primitives/Button';
 import { UserMenuBar } from './UserMenuBar';
 import { CartBadgeIndicator } from './CartBadgeIndicator';
@@ -12,9 +11,11 @@ export function HeaderBar({ currentRoute = 'catalog', onNavigate, cartCount = 0 
   return (
     <header className="site-header">
       <div className="header-brand-section" onClick={() => onNavigate && onNavigate('catalog')}>
-        <span className="brand-logo">🛍️</span>
-        <h1 className="brand-title">Meridian Market</h1>
-        <Badge variant="emerald" title="Case study implementation">Bottom-Up</Badge>
+        <span className="brand-logo" aria-hidden="true">E</span>
+        <div className="brand-copy">
+          <h1 className="brand-title">E-Commerce Application</h1>
+          <span className="brand-subtitle">Bottom-Up Approach</span>
+        </div>
       </div>
 
       <nav className="header-nav">
@@ -32,7 +33,7 @@ export function HeaderBar({ currentRoute = 'catalog', onNavigate, cartCount = 0 
             size="sm"
             onClick={() => onNavigate && onNavigate('orders')}
           >
-            📦 My Orders
+            My Orders
           </Button>
         )}
 
@@ -43,21 +44,21 @@ export function HeaderBar({ currentRoute = 'catalog', onNavigate, cartCount = 0 
               size="sm"
               onClick={() => onNavigate && onNavigate('admin-dashboard')}
             >
-              📊 Dashboard
+              Dashboard
             </Button>
             <Button
               variant={currentRoute === 'admin-products' || currentRoute === 'admin-product-new' || currentRoute === 'admin-product-edit' ? 'primary' : 'outline'}
               size="sm"
               onClick={() => onNavigate && onNavigate('admin-products')}
             >
-              📦 Products
+              Products
             </Button>
             <Button
               variant={currentRoute === 'admin-orders' || currentRoute === 'admin-order-details' ? 'primary' : 'outline'}
               size="sm"
               onClick={() => onNavigate && onNavigate('admin-orders')}
             >
-              📋 Orders
+              Orders
             </Button>
           </>
         )}

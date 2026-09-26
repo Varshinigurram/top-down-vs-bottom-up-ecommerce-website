@@ -132,16 +132,12 @@ export function CheckoutView({ onNavigate }) {
       <header className="view-header">
         <div>
           <h2>Review & Place Order</h2>
-          <p>Top-Down View: Finalize purchase items, inspect calculated totals, and create order entity.</p>
+          <p>One last look at your order before it is confirmed.</p>
         </div>
         <button className="btn-secondary" onClick={() => onNavigate('cart')}>
           ← Back to Cart
         </button>
       </header>
-
-      <div className="status-banner">
-        <strong>Design Pattern Note:</strong> Server verifies stock & calculates financial totals authoritatively via `POST /api/orders`.
-      </div>
 
       {error && <div className="alert-banner error">{error}</div>}
 

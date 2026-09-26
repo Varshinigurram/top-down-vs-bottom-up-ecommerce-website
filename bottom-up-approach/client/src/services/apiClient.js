@@ -3,7 +3,7 @@
  * (Standard HTTP fetch wrapper with normalized error handling)
  */
 
-const API_BASE_URL = '/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 export async function httpRequest(endpoint, options = {}) {
   const url = endpoint.startsWith('/') ? `${API_BASE_URL}${endpoint}` : `${API_BASE_URL}/${endpoint}`;
@@ -45,7 +45,7 @@ export async function httpRequest(endpoint, options = {}) {
   }
 
   if (responseData === null) {
-    throw new Error(`Server returned a non-JSON response (${contentType || 'no content-type'}). Ensure the Bottom-Up backend is running on port 5002.`);
+    throw new Error(`Server returned a non-JSON response (${contentType || 'no content-type'}). Check the Bottom-Up API at port 5002 or configure VITE_API_URL.`);
   }
 
   return responseData;

@@ -7,7 +7,7 @@ export function ProductItem({ product, onViewDetails, onAddToCart }) {
   return (
     <div className="product-card" onClick={() => onViewDetails && onViewDetails(product.id)}>
       <div className="product-image-container">
-        <span className="product-image-emoji">{product.image || product.icon || '📦'}</span>
+        <img className="product-image-emoji" src={product.image || product.icon || '/images/product-default.svg'} alt="" />
         <span className="product-category-tag">{product.category}</span>
       </div>
 

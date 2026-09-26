@@ -8,9 +8,9 @@ const products = [
     id: 'prod_101',
     name: 'Wireless Ergonomic Noise-Canceling Headset',
     description: 'High-fidelity audio with active noise cancellation, dual microphones, and 30-hour battery life for professional work environments.',
-    price: 99.99,
+    price: 3499,
     category: 'Electronics',
-    image: '🎧',
+    image: '/images/headset.svg',
     stock: 15,
     createdAt: '2026-09-01T10:00:00.000Z',
     updatedAt: '2026-09-21T18:00:00.000Z'
@@ -19,9 +19,9 @@ const products = [
     id: 'prod_102',
     name: 'Tactile RGB Mechanical Keyboard',
     description: 'Customizable mechanical gaming keyboard featuring hot-swappable tactile switches, aluminum top casing, and dynamic per-key backlighting.',
-    price: 129.50,
+    price: 5499,
     category: 'Electronics',
-    image: '⌨️',
+    image: '/images/keyboard.svg',
     stock: 8,
     createdAt: '2026-09-02T10:00:00.000Z',
     updatedAt: '2026-09-21T18:00:00.000Z'
@@ -30,9 +30,9 @@ const products = [
     id: 'prod_103',
     name: 'Smart Health & Fitness Tracker Watch',
     description: 'Waterproof smartwatch with continuous heart rate monitoring, continuous SpO2 tracking, sleep analysis, and GPS activity tracking.',
-    price: 149.00,
+    price: 6999,
     category: 'Electronics',
-    image: '⌚',
+    image: '/images/smartwatch.svg',
     stock: 22,
     createdAt: '2026-09-03T10:00:00.000Z',
     updatedAt: '2026-09-21T18:00:00.000Z'
@@ -41,9 +41,9 @@ const products = [
     id: 'prod_104',
     name: 'Precision Optical Ergonomic Mouse',
     description: 'High-precision wireless mouse with thumb rest, hyper-fast scroll wheel, and multi-device Bluetooth connectivity.',
-    price: 49.99,
+    price: 1799,
     category: 'Electronics',
-    image: '🖱️',
+    image: '/images/mouse.svg',
     stock: 35,
     createdAt: '2026-09-04T10:00:00.000Z',
     updatedAt: '2026-09-21T18:00:00.000Z'
@@ -52,9 +52,9 @@ const products = [
     id: 'prod_105',
     name: 'Ultra-Wide Stitched Desk Mat Pad',
     description: 'Minimalist desk pad made from premium micro-weave cloth with reinforced anti-fray stitched edges and heavy non-slip rubber base.',
-    price: 24.99,
+    price: 899,
     category: 'Accessories',
-    image: '🖼️',
+    image: '/images/desk.svg',
     stock: 50,
     createdAt: '2026-09-05T10:00:00.000Z',
     updatedAt: '2026-09-21T18:00:00.000Z'
@@ -63,9 +63,9 @@ const products = [
     id: 'prod_106',
     name: 'Minimalist Leather Slim Cardholder',
     description: 'Handcrafted full-grain leather wallet equipped with RFID-blocking technology and quick-access card ejection slot.',
-    price: 34.50,
+    price: 1299,
     category: 'Fashion',
-    image: '👛',
+    image: '/images/fashion.svg',
     stock: 18,
     createdAt: '2026-09-06T10:00:00.000Z',
     updatedAt: '2026-09-21T18:00:00.000Z'
@@ -74,9 +74,9 @@ const products = [
     id: 'prod_107',
     name: 'Insulated Stainless Steel Water Flask',
     description: 'Vacuum-insulated 32oz bottle keeping beverages icy cold for 24 hours or piping hot for 12 hours with leak-proof straw lid.',
-    price: 29.99,
+    price: 999,
     category: 'Lifestyle',
-    image: '🧉',
+    image: '/images/lifestyle.svg',
     stock: 40,
     createdAt: '2026-09-07T10:00:00.000Z',
     updatedAt: '2026-09-21T18:00:00.000Z'
@@ -85,9 +85,9 @@ const products = [
     id: 'prod_108',
     name: 'Modern Ambient LED Desk Lamp',
     description: 'Dimmable architectural desk lamp with adjustable color temperatures, touch controls, and built-in fast wireless charging pad.',
-    price: 59.95,
+    price: 1499,
     category: 'Home',
-    image: '💡',
+    image: '/images/home.svg',
     stock: 12,
     createdAt: '2026-09-08T10:00:00.000Z',
     updatedAt: '2026-09-21T18:00:00.000Z'
@@ -96,9 +96,9 @@ const products = [
     id: 'prod_109',
     name: 'Ergonomic Memory Foam Lumbar Cushion',
     description: 'Premium high-density memory foam cushion providing optimal lower back support and posture alignment for office chairs.',
-    price: 39.99,
+    price: 1899,
     category: 'Home',
-    image: '🛋️',
+    image: '/images/home.svg',
     stock: 25,
     createdAt: '2026-09-09T10:00:00.000Z',
     updatedAt: '2026-09-21T18:00:00.000Z'
@@ -107,9 +107,9 @@ const products = [
     id: 'prod_110',
     name: 'Water-Resistant Commuter Backpack',
     description: 'Sleek travel backpack featuring padded 16-inch laptop compartment, hidden anti-theft pocket, and integrated USB charging port.',
-    price: 79.00,
+    price: 2299,
     category: 'Accessories',
-    image: '🎒',
+    image: '/images/fashion.svg',
     stock: 14,
     createdAt: '2026-09-10T10:00:00.000Z',
     updatedAt: '2026-09-21T18:00:00.000Z'
@@ -218,5 +218,3 @@ export async function deleteProduct(id) {
   products.splice(index, 1);
   return Promise.resolve(true);
 }
-
-

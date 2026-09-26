@@ -7,7 +7,7 @@ export function CartBadgeIndicator({ count = 0, onClick, isActive = false }) {
       onClick={onClick}
       aria-label={`Shopping Cart with ${count} items`}
     >
-      🛒 Cart
+      <span aria-hidden="true">Cart</span>
       {count > 0 && <span className="cart-count-badge">{count}</span>}
     </button>
   );

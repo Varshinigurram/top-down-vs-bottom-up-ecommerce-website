@@ -49,37 +49,41 @@ function getFallbackProducts() {
     {
       id: 'p1',
       title: 'Wireless Ergonomic Headset',
-      price: 99.99,
+      price: 3499,
       description: 'High-fidelity audio with active noise cancellation for professional use.',
       category: 'Electronics',
-      icon: '🎧',
+      image: '/images/headset.svg',
+      icon: '/images/headset.svg',
       stock: 15
     },
     {
       id: 'p2',
       title: 'Mechanical Gaming Keyboard',
-      price: 129.50,
+      price: 5499,
       description: 'Tactile switches with customizable RGB backlighting and durable chassis.',
       category: 'Electronics',
-      icon: '⌨️',
+      image: '/images/keyboard.svg',
+      icon: '/images/keyboard.svg',
       stock: 8
     },
     {
       id: 'p3',
       title: 'Smart Fitness Watch',
-      price: 149.00,
+      price: 6999,
       description: 'Tracks heart rate, sleep metrics, and workout performance continuously.',
-      category: 'Wearables',
-      icon: '⌚',
+      category: 'Electronics',
+      image: '/images/smartwatch.svg',
+      icon: '/images/smartwatch.svg',
       stock: 22
     },
     {
       id: 'p4',
       title: 'Ultra-Wide Desk Pad',
-      price: 24.99,
+      price: 899,
       description: 'Smooth microfiber surface with stitched edges and non-slip rubber base.',
       category: 'Accessories',
-      icon: '🖼️',
+      image: '/images/desk.svg',
+      icon: '/images/desk.svg',
       stock: 50
     }
   ];

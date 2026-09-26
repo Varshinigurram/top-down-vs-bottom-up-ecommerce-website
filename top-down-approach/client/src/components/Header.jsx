@@ -12,8 +12,11 @@ export function Header({ currentView, onNavigate }) {
   return (
     <header className="site-header">
       <div className="header-brand" onClick={() => onNavigate('catalog')}>
-        <h1>Meridian Market</h1>
-        <span className="badge-paradigm" title="Case study implementation">Top-Down</span>
+        <span className="brand-mark" aria-hidden="true">E</span>
+        <div className="brand-copy">
+          <h1>E-Commerce Application</h1>
+          <span className="badge-paradigm" title="Case study implementation">Top-Down Approach</span>
+        </div>
       </div>
 
       <nav className="header-nav">
@@ -28,7 +31,7 @@ export function Header({ currentView, onNavigate }) {
           className={`nav-btn nav-cart-btn ${currentView === 'cart' ? 'active' : ''}`}
           onClick={() => onNavigate('cart')}
         >
-          🛒 Cart
+          Cart
           {cartItemCount > 0 && <span className="cart-count-badge">{cartItemCount}</span>}
         </button>
 
@@ -37,7 +40,7 @@ export function Header({ currentView, onNavigate }) {
             className={`nav-btn ${currentView === 'orders' || currentView === 'order-details' ? 'active' : ''}`}
             onClick={() => onNavigate('orders')}
           >
-            📦 Orders
+            Orders
           </button>
         )}
 
@@ -46,7 +49,7 @@ export function Header({ currentView, onNavigate }) {
             className={`nav-btn btn-admin-nav ${currentView.startsWith('admin') ? 'active' : ''}`}
             onClick={() => onNavigate('admin-dashboard')}
           >
-            ⚙️ Admin
+            Admin
           </button>
         )}
 

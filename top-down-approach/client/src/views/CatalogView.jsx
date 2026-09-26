@@ -57,13 +57,23 @@ export function CatalogView({ onViewDetails, onNavigate }) {
     <section className="catalog-view-container">
       <header className="view-header">
         <div className="view-header-title">
-          <h2>Shop the Catalog</h2>
-          <p>Browse products, filter by category, and search by keyword.</p>
+          <span className="eyebrow">TOP-DOWN APPROACH / PRODUCT CATALOG</span>
+          <h2>Explore the catalog.</h2>
+          <p>Practical products across Electronics, Home, Fashion, Accessories and Lifestyle.</p>
         </div>
         <span className="results-count-badge">
           {loading ? 'Searching...' : `${products.length} Products Found`}
         </span>
       </header>
+
+      <section className="catalog-intro-panel">
+        <div>
+          <span className="intro-kicker">E-COMMERCE CASE STUDY</span>
+          <h3>Find useful products for everyday life.</h3>
+          <p>Clear pricing, dependable stock and a straightforward shopping experience.</p>
+        </div>
+        <button className="btn-light" onClick={() => setSelectedCategory('Lifestyle')}>Explore lifestyle</button>
+      </section>
 
       <div className="catalog-controls-card">
         <ProductSearch

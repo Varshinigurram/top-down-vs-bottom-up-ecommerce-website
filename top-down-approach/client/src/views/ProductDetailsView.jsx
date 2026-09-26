@@ -107,7 +107,7 @@ export function ProductDetailsView({ productId, onBackToCatalog, onNavigate }) {
       <div className="product-details-card">
         <div className="product-details-visual">
           <div className="visual-preview-box">
-            <span className="preview-emoji">{product.image || product.icon || '📦'}</span>
+            <img className="preview-emoji" src={product.image || product.icon || '/images/product-default.svg'} alt={product.name || product.title || 'Product'} />
           </div>
           <span className="visual-category-badge">{product.category}</span>
         </div>

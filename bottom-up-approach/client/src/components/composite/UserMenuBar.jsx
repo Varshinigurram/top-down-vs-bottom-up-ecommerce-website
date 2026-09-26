@@ -20,7 +20,7 @@ export function UserMenuBar({ onNavigate }) {
 
   return (
     <div className="user-profile-badge">
-      <span className="user-name-label">👤 {user.name}</span>
+      <span className="user-name-label">{user.name}</span>
       <span className="user-role-badge">{user.role}</span>
       <Button variant="outline" size="sm" onClick={logout}>
         Logout

@@ -43,7 +43,7 @@ export function CartSummaryCard({ subtotal = 0, onCheckout, isCheckingOut = fals
           loading={isCheckingOut}
           onClick={onCheckout}
         >
-          💳 Proceed to Checkout
+          Proceed to Checkout
         </Button>
       )}
     </div>
