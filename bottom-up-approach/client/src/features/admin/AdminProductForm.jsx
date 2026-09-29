@@ -162,7 +162,7 @@ export function AdminProductForm({ productId, onNavigate }) {
 
           <div className="form-row">
             <div className="form-group col-half">
-              <label htmlFor="prodPrice">Price ($) *</label>
+              <label htmlFor="prodPrice">Price (INR) *</label>
               <input
                 id="prodPrice"
                 name="price"
@@ -172,7 +172,7 @@ export function AdminProductForm({ productId, onNavigate }) {
                 className="ui-input"
                 value={formData.price}
                 onChange={handleChange}
-                placeholder="49.99"
+                placeholder="e.g. 3499"
                 required
               />
             </div>

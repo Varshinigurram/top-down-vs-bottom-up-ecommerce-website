@@ -29,12 +29,12 @@ body {
 }
 
 .ui-button-primary {
-  background-color: #059669;
+  background-color: #4f46e5;
   color: #ffffff;
 }
 
 .ui-button-primary:hover {
-  background-color: #047857;
+  background-color: #3730a3;
 }
 
 .ui-card {
@@ -75,7 +75,7 @@ body {
 
 /* Layout and View Styles */
 .site-header {
-  background-color: #064e3b;
+  background-color: #0f172a;
   color: #ffffff;
   padding: 1rem 2rem;
   display: flex;

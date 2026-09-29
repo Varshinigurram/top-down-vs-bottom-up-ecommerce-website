@@ -2,11 +2,18 @@ import { createUserEntity, serializeSafeUser } from '../models/user.model.js';
 import { createInitialSeedUsers } from '../data/seedData.js';
 
 const users = [];
+let seedPromise = null;
 
 async function initializeUsers() {
   if (users.length === 0) {
-    const seed = await createInitialSeedUsers();
-    seed.forEach((u) => users.push(createUserEntity(u)));
+    if (!seedPromise) {
+      seedPromise = createInitialSeedUsers().then((seed) => {
+        if (users.length === 0) {
+          seed.forEach((u) => users.push(createUserEntity(u)));
+        }
+      });
+    }
+    await seedPromise;
   }
 }
 
