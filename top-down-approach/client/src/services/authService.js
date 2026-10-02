@@ -1,22 +1,19 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
-
 /**
- * Helper wrapper for fetch requests with JSON headers and cookie credentials.
+ * Top-Down Authentication Client Service
+ * Uses relative /api path so Vite proxy routes to the Express server.
  */
 async function apiRequest(endpoint, method = 'GET', body = null) {
   const options = {
     method,
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    credentials: 'include' // Ensures HTTP-only cookies are included
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include' // Required: sends HTTP-only cookie with every request
   };
 
   if (body) {
     options.body = JSON.stringify(body);
   }
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+  const response = await fetch(`/api${endpoint}`, options);
   const data = await response.json();
 
   if (!response.ok) {
@@ -26,9 +23,6 @@ async function apiRequest(endpoint, method = 'GET', body = null) {
   return data;
 }
 
-/**
- * Client authentication service methods
- */
 export async function register(userData) {
   return apiRequest('/auth/register', 'POST', userData);
 }
